@@ -1,0 +1,3 @@
+Hier liegen die Fotos der Website.
+Dateinamen und Motive stehen in build/fotoliste.txt bzw. werden beim Bauen ausgegeben.
+Format: JPG, mindestens 1600 Pixel an der langen Kante.
