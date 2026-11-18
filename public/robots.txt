@@ -1,4 +1,4 @@
 User-agent: *
 Allow: /
 
-Sitemap: https://stayhere-eventzentrale-wedel.rmo1303.chatgpt.site/sitemap.xml
+Sitemap: https://stayhere-wedel.de/sitemap.xml

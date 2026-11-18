@@ -6,7 +6,7 @@ import os
 import shutil
 import sys
 
-BASE = "https://stayhere-eventzentrale-wedel.rmo1303.chatgpt.site"
+BASE = "https://stayhere-wedel.de"
 OUT = sys.argv[1] if len(sys.argv) > 1 else "/home/claude/site"
 HERE = os.path.dirname(os.path.abspath(__file__))
 STAND = "16.11.2026"

@@ -1,6 +1,6 @@
 import os,re,json,html,posixpath,sys
 sys.path.insert(0,os.path.dirname(os.path.abspath(__file__)))
-SITE='/home/claude/site'; BASE='https://stayhere-eventzentrale-wedel.rmo1303.chatgpt.site'
+SITE='/home/claude/site'; BASE='https://stayhere-wedel.de'
 PAGES=['index.html','haeuser.html','unterkuenfte/stayhere-01.html','unterkuenfte/stayhere-02.html','unterkuenfte/stayhere-03.html','gastgeber.html','wedel-elbe.html','hamburg-tipps.html','events.html','anreise-faq.html']
 SEGS=json.load(open(os.path.join(os.path.dirname(os.path.abspath(__file__)),'segs.json'),encoding='utf-8'))
 HERE=os.path.dirname(os.path.abspath(__file__))
