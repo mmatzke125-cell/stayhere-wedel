@@ -1103,6 +1103,28 @@ SITE_JS = """(function () {
 """
 
 
+
+def not_found():
+    """Seite für Adressen, die es nicht gibt. Dreisprachig, weil Cloudflare nur
+    eine einzige 404-Seite für die ganze Website ausliefert."""
+    body = section(
+        '<p class="label">Fehler 404</p>'
+        "<h1>Diese Seite gibt es nicht</h1>"
+        '<div class="lines">'
+        "<p>Die Adresse führt ins Leere. Vielleicht hat sich ein Tippfehler eingeschlichen, "
+        "oder die Seite heißt inzwischen anders.</p>"
+        '<p lang="en">This page does not exist. The address leads nowhere.</p>'
+        '<p lang="es">Esta página no existe. La dirección no lleva a ninguna parte.</p>'
+        "</div>"
+        '<p class="links">%s · %s · %s</p>' % (
+            inn("index.html", "Zur Startseite"),
+            inn("haeuser.html", "Unterkünfte"),
+            inn("anreise-faq.html", "Anreise und Fragen")), "rule")
+    page("404.html", "Seite nicht gefunden | stayHere Wedel",
+         "Diese Adresse führt ins Leere. Zurück zur Startseite von stayHere Wedel.",
+         body, robots="noindex,follow", in_sitemap=False)
+
+
 def build_meta_files():
     sm = ['<?xml version="1.0" encoding="UTF-8"?>', '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">']
     for p in PAGES:
@@ -1112,6 +1134,15 @@ def build_meta_files():
         f.write("\n".join(sm) + "\n")
     with open(os.path.join(OUT, "robots.txt"), "w", encoding="utf-8") as f:
         f.write("User-agent: *\nAllow: /\n\nSitemap: %s/sitemap.xml\n" % BASE)
+    # Ohne eigene 404-Seite liefert Cloudflare Pages für jede unbekannte Adresse
+    # die Startseite mit Status 200 aus. Suchmaschinen nehmen das als echte Seite.
+    not_found()
+    # Schriften ändern sich nie, Stil und Skript selten.
+    with open(os.path.join(OUT, "_headers"), "w", encoding="utf-8") as f:
+        f.write("/fonts/*\n  Cache-Control: public, max-age=31536000, immutable\n"
+                "/img/*\n  Cache-Control: public, max-age=2592000\n"
+                "/css/*\n  Cache-Control: public, max-age=86400\n"
+                "/js/*\n  Cache-Control: public, max-age=86400\n")
     llms = """# stayHere Wedel
 
 > Drei privat geführte Ferienunterkünfte in 22880 Wedel (Schleswig-Holstein), an der Elbe westlich von Hamburg. Wedel ist die Endstation der S-Bahn-Linie S1, die ohne Umsteigen nach Altona, Landungsbrücken, Jungfernstieg, Hamburg Hauptbahnhof und zum Flughafen fährt. Gastgeber: Ruppert Gerhard Matzke, Airbnb-Superhost, spricht Deutsch, Englisch und Spanisch. Stand der Angaben: {stand}.
