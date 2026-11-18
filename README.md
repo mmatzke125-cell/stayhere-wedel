@@ -18,10 +18,17 @@ fremden Servern außer der Google-Karte, die erst auf Klick lädt.
 cd build
 python3 build3.py ../public   # erzeugt alle deutschen Seiten
 python3 i18n_build.py         # ergänzt Englisch und Spanisch
+python3 cleanurls.py ../public # entfernt .html aus allen Verweisen
 ```
 
 `i18n_build.py` muss immer direkt nach `build3.py` laufen, sonst stimmen die
-Sprachlinks nicht.
+Sprachlinks nicht. `cleanurls.py` läuft als Letztes.
+
+Cloudflare Pages liefert `haeuser.html` unter `/haeuser` aus und leitet die
+Adresse mit Endung dorthin um. Deshalb entfernt `cleanurls.py` die Endung aus
+allen Links, Canonical-Angaben, hreflang, der Sitemap, dem JSON-LD und der
+llms.txt. Bei einem Umzug auf einen gewöhnlichen Webserver muss der entweder
+dasselbe tun oder dieser Schritt entfällt.
 
 ## Veröffentlichen
 
